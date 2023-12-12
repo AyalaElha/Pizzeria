@@ -3,8 +3,10 @@ project to manage orders of a pizza shops
 pizzeria
 
 ##**Pizza**
->Id
->Type
+Id
+
+Type
+
 >Price
 +Get – https://pizzeria.co.il/pizza/ -get pizza
 +Get(i)– https://pizzeria.co.il/pizza?id -get pizza  by id
