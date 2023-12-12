@@ -3,15 +3,21 @@ project to manage orders of a pizza shops
 pizzeria
 
 ##**Pizza**
+
 Id
 
 Type
 
->Price
-+Get – https://pizzeria.co.il/pizza/ -get pizza
-+Get(i)– https://pizzeria.co.il/pizza?id -get pizza  by id
-*Put- https://pizzeria.co.il/pizza/{id} -update pizza by id
-&Post - https://pizzeria.co.il/pizza  -add new pizza
+Price
+
+Get – https://pizzeria.co.il/pizza/ -get pizza
+
+Get(i)– https://pizzeria.co.il/pizza?id -get pizza  by id
+
+Put- https://pizzeria.co.il/pizza/{id} -update pizza by id
+
+Post - https://pizzeria.co.il/pizza  -add new pizza
+
 ##**Customer**
 Id
 Name
