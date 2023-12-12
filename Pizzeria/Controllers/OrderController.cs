@@ -9,37 +9,41 @@ namespace Pizzeria.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        static List<Order> orders = new List<Order> { new Order ( 1,  1,new List<Pizza> { new Pizza(1, "null", 45,true) },DateTime.Today ) };
-        static int counter = 2;
+        private readonly DataContext _context;
+        public OrderController(DataContext context)
+        {
+          _context = context;
+        }
+
         // GET: api/<EventsController>
         [HttpGet]
         public ActionResult<List<Order>> Get()
         {
-            return orders;
+            return _context.Orders;
         }
 
         // GET Pizzeria/<CustomerController>/5
         [HttpGet("{id}")]
         public ActionResult<Order> Get(int id)
         {
-            if ((id > counter) || (id < 1))
+            if ((id > _context.CounterO) || (id < 1))
                 return StatusCode(404, "Order not found");
-            return orders.Find(c => c.Id == id);
+            return _context.Orders.Find(c => c.Id == id);
         }
 
         // POST Pizzeria/<CustomerController>
         [HttpPost]
         public void Post([FromBody] Order o)
         {
-            orders.Add(new Order(counter, o.Id,o.Pizzalst,o.OrderDate));
-            counter++;
+            _context.Orders.Add(new Order(_context.CounterO,o.IdCustomer,o.Pizzalst,o.OrderDate));
+            _context.CounterO++;
         }
 
         // PUT Pizzeria/<CustomerController>/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Order o)
         {
-            Order o1 = orders.Find(x => x.Id == id);
+            Order o1 = _context.Orders.Find(x => x.Id == id);
             if (o1 != null)
             {
                 o1.Pizzalst = o.Pizzalst;

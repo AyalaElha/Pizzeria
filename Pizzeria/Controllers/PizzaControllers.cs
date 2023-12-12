@@ -9,30 +9,33 @@ namespace Pizzeria.Controllers
     [ApiController]
     public class PizzaController : ControllerBase
     {
-        static List<Pizza> pizzas = new List<Pizza> { new Pizza(1,"our first pizza",45,true) };
-        static int counter = 2;
+        private readonly DataContext _context;
+        public PizzaController(DataContext context)
+        {
+                _context=context;
+        }
         // GET: Pizzeria/<PizzaController>
         [HttpGet]
         public ActionResult <List<Pizza>> Get()
         {
-            return pizzas;
+            return _context.Pizzas;
         }
 
         // GET Pizzeria/<PizzaController>/5
         [HttpGet("{id}")]
         public ActionResult <Pizza> Get(int id)
         {
-            if ((id > counter) || (id < 1))
+            if ((id > _context.CounterP) || (id < 1))
                 return NotFound();
-            return pizzas.Find(c => c.Id == id);
+            return _context.Pizzas.Find(c => c.Id == id);
         }
 
         // POST Pizzeria/<PizzaController>
         [HttpPost]
         public void Post([FromBody] Pizza e)
         {
-            pizzas.Add(new Pizza ( e.Id, e.Descreption.ToString(),e.Price,e.Status ));
-            counter++;
+            _context.Pizzas.Add(new Pizza ( e.Id, e.Descreption.ToString(),e.Price,e.Status ));
+            _context.CounterP++;
 
         }
 
@@ -40,7 +43,7 @@ namespace Pizzeria.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Pizza p)
         {
-            Pizza p1 = pizzas.Find(x => x.Id == id);
+            Pizza p1 = _context.Pizzas.Find(x => x.Id == id);
             if(p1 == null)
             {
                 p1.Descreption=p.Descreption.ToString();    

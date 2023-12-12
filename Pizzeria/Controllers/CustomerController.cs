@@ -9,37 +9,41 @@ namespace Pizzeria.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        static List<Customer> customers = new List<Customer> {new Customer(1,"Ayala","0556768676","havakuk 1- bnei brak") };
-        static int counter = 2;
+        private readonly DataContext _context;
+        public CustomerController(DataContext context)
+        {
+            _context = context;
+        }
+        
         // GET: api/<CustomerController>
         [HttpGet]
         public ActionResult <List<Customer>>Get()
         {
-            return customers;
+            return _context.Customers;
         }
 
         // GET Pizzeria/<CustomerController>/5
         [HttpGet("{id}")]
         public ActionResult <Customer> Get(int id)
         {
-            if((id > counter) || (id < 1))
+            if((id > _context.CounterC) || (id < 1))
                  return StatusCode(404, "Customer not found");
-            return customers.Find(c => c.Id == id);
+            return _context.Customers.Find(c => c.Id == id);
         }
 
         // POST Pizzeria/<CustomerController>
         [HttpPost]
         public void Post([FromBody] Customer c)
         {
-            customers.Add(new Customer(counter,c.Name,c.Phone,c.Adress));
-            counter++;
+            _context.Customers.Add(new Customer(_context.CounterC, c.Name,c.Phone,c.Adress));
+            _context.CounterC++;//בדיקה
         }
 
         // PUT Pizzeria/<CustomerController>/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Customer c)
         {
-            Customer c1 = customers.Find(x=> x.Id == id);
+            Customer c1 = _context.Customers.Find(x=> x.Id == id);
             if (c1 != null)
             {
                 c1.Name = c.Name;
