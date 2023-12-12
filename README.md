@@ -4,7 +4,7 @@ pizzeria
 
 ## Pizza
 
-Id
++ Id
 
 Type
 
@@ -18,7 +18,8 @@ Put- https://pizzeria.co.il/pizza/{id} -update pizza by id
 
 Post - https://pizzeria.co.il/pizza  -add new pizza
 
-##**Customer**
+##Customer
+
 Id
 
 Name
@@ -35,7 +36,7 @@ Put- https://pizzeria.co.il/customer /{id} -update customer by id
 
 Post - https://pizzeria.co.il/customer -add new customer
 
-##**Order**
+##Order
 
 Id
 
@@ -45,7 +46,7 @@ idCustomer
 
 date
 
-list of pizza
+***list of pizza***
 
 Get – https://pizzeria.co.il/order/ -get order
 
