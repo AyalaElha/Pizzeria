@@ -10,6 +10,8 @@ pizzeria
 
 + Price
 
++ status
+
 Get – https://pizzeria.co.il/pizza/ -get pizza
 
 Get(i)– https://pizzeria.co.il/pizza?id -get pizza  by id
