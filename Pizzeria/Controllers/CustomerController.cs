@@ -11,7 +11,7 @@ namespace Pizzeria.Controllers
     {
         static List<Customer> customers = new List<Customer> {new Customer(1,"Ayala","0556768676","havakuk 1- bnei brak") };
         static int counter = 2;
-        // GET: api/<EventsController>
+        // GET: api/<CustomerController>
         [HttpGet]
         public ActionResult <List<Customer>>Get()
         {
@@ -37,7 +37,7 @@ namespace Pizzeria.Controllers
 
         // PUT Pizzeria/<CustomerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Customer c)
+        public ActionResult Put(int id, [FromBody] Customer c)
         {
             Customer c1 = customers.Find(x=> x.Id == id);
             if (c1 != null)
@@ -45,8 +45,9 @@ namespace Pizzeria.Controllers
                 c1.Name = c.Name;
                 c1.Phone = c.Phone;
                 c1.Adress = c.Adress;
+                return Ok();
             }
-            //todo:?
+            return  NotFound();
         }
     }
 }

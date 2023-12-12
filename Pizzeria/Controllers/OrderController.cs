@@ -9,7 +9,7 @@ namespace Pizzeria.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        static List<Order> orders = new List<Order> { new Order ( 1,  1,new List<Pizza> { new Pizza(1, "null", 45) },DateTime.Today ) };
+        static List<Order> orders = new List<Order> { new Order ( 1,  1,new List<Pizza> { new Pizza(1, "null", 45,true) },DateTime.Today ) };
         static int counter = 2;
         // GET: api/<EventsController>
         [HttpGet]
@@ -37,16 +37,17 @@ namespace Pizzeria.Controllers
 
         // PUT Pizzeria/<CustomerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Order o)
+        public ActionResult Put(int id, [FromBody] Order o)
         {
             Order o1 = orders.Find(x => x.Id == id);
             if (o1 != null)
             {
                 o1.Pizzalst = o.Pizzalst;
                 o1.IdCustomer = o.IdCustomer;
-                o1.OrderDate = o.OrderDate;        
+                o1.OrderDate = o.OrderDate;
+                return Ok();
             }
-            //todo:?
+           return NotFound();
         }
     }
 }

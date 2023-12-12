@@ -9,7 +9,7 @@ namespace Pizzeria.Controllers
     [ApiController]
     public class PizzaController : ControllerBase
     {
-        static List<Pizza> pizzas = new List<Pizza> { new Pizza(1,"our first pizza",45) };
+        static List<Pizza> pizzas = new List<Pizza> { new Pizza(1,"our first pizza",45,true) };
         static int counter = 2;
         // GET: Pizzeria/<PizzaController>
         [HttpGet]
@@ -23,7 +23,7 @@ namespace Pizzeria.Controllers
         public ActionResult <Pizza> Get(int id)
         {
             if ((id > counter) || (id < 1))
-                return StatusCode(404, "Pizza not found");
+                return NotFound();
             return pizzas.Find(c => c.Id == id);
         }
 
@@ -31,14 +31,14 @@ namespace Pizzeria.Controllers
         [HttpPost]
         public void Post([FromBody] Pizza e)
         {
-            pizzas.Add(new Pizza ( e.Id, e.Descreption.ToString(),e.Price ));
+            pizzas.Add(new Pizza ( e.Id, e.Descreption.ToString(),e.Price,e.Status ));
             counter++;
 
         }
 
         // PUT Pizzeria/<PizzaController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Pizza p)
+        public ActionResult Put(int id, [FromBody] Pizza p)
         {
             Pizza p1 = pizzas.Find(x => x.Id == id);
             if(p1 == null)
@@ -46,7 +46,11 @@ namespace Pizzeria.Controllers
                 p1.Descreption=p.Descreption.ToString();    
                 p1.Price=p.Price;    
                 p1.Id=id;
+                p1.Status = p.Status;
+                return Ok();
             }
+            else
+                return NotFound();
         }
 
     }
